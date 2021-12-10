@@ -15,13 +15,13 @@ object ApiConfig {
 
     private val client = OkHttpClient.Builder()
         .addInterceptor { chain ->
-            val request = chain.request()
-                .newBuilder()
-                .addHeader("Authorization", "token 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")
+            val original = chain.request()
+            val newRequest = original.newBuilder()
                 .addHeader("Accept", "application/vnd.github.v3+json")
+                .addHeader("Authorization", "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")
                 .build()
 
-            chain.proceed(request)
+            chain.proceed(newRequest)
         }
         .addInterceptor(interceptor)
         .connectTimeout(1, TimeUnit.MINUTES)
