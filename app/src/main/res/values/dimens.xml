@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="dp_4">4dp</dimen>
+    <dimen name="dp_8">8dp</dimen>
+
+    <dimen name="logo_size">200dp</dimen>
+    <dimen name="photo_detail_size">140dp</dimen>
+    <dimen name="big_text_size">18sp</dimen>
+    <dimen name="top_content_margin_size">48dp</dimen>
+    <dimen name="photo_item_size">90dp</dimen>
+    <dimen name="dp_16">16dp</dimen>
+    <dimen name="dp_48">48dp</dimen>
+</resources>
