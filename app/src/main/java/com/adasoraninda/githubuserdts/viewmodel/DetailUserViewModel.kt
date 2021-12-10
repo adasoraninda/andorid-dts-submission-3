@@ -5,7 +5,6 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.adasoraninda.githubuserdts.R
-import com.adasoraninda.githubuserdts.common.DaoMessageResult
 import com.adasoraninda.githubuserdts.data.domain.User
 import com.adasoraninda.githubuserdts.data.domain.toDomain
 import com.adasoraninda.githubuserdts.data.entity.toEntity
@@ -46,8 +45,8 @@ class DetailUserViewModel(
     private val _back = MutableLiveData<Event<Boolean>>()
     val back: LiveData<Event<Boolean>> get() = _back
 
-    private val _daoMessageResult = MutableLiveData<Event<DaoMessageResult>>()
-    val daoMessageResult: LiveData<Event<DaoMessageResult>> get() = _daoMessageResult
+    private val _daoMessageResult = MutableLiveData<Event<Int>>()
+    val daoMessageResult: LiveData<Event<Int>> get() = _daoMessageResult
 
     private val _isFavorite = MutableLiveData<Boolean?>(null)
     val isFavorite: LiveData<Boolean?> get() = _isFavorite
@@ -119,17 +118,17 @@ class DetailUserViewModel(
             checkUser(
                 onInValid = {
                     _daoMessageResult.value =
-                        Event(DaoMessageResult.Save(message = R.string.error_dao_save))
+                        Event(R.string.error_dao_save)
                 },
                 onValid = {
                     val userEntity = it.toEntity()
                     val result = userDao.saveData(userEntity)
                     if (result > 0) {
                         _daoMessageResult.value =
-                            Event(DaoMessageResult.Save(message = R.string.success_dao_save))
+                            Event(R.string.success_dao_save)
                     } else {
                         _daoMessageResult.value =
-                            Event(DaoMessageResult.Save(message = R.string.error_dao_save))
+                            Event(R.string.error_dao_save)
                     }
                 }
             )
@@ -141,17 +140,17 @@ class DetailUserViewModel(
             checkUser(
                 onInValid = {
                     _daoMessageResult.value =
-                        Event(DaoMessageResult.Delete(message = R.string.error_dao_delete))
+                        Event(R.string.error_dao_delete)
                 },
                 onValid = {
                     val userEntity = it.toEntity()
                     val result = userDao.deleteData(userEntity)
                     if (result > 0) {
                         _daoMessageResult.value =
-                            Event(DaoMessageResult.Delete(message = R.string.success_dao_delete))
+                            Event(R.string.success_dao_delete)
                     } else {
                         _daoMessageResult.value =
-                            Event(DaoMessageResult.Delete(message = R.string.error_dao_delete))
+                            Event(R.string.error_dao_delete)
                     }
                 }
             )

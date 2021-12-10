@@ -13,7 +13,6 @@ import androidx.core.view.isVisible
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.adasoraninda.githubuserdts.R
-import com.adasoraninda.githubuserdts.common.DaoMessageResult
 import com.adasoraninda.githubuserdts.common.FollowType
 import com.adasoraninda.githubuserdts.common.SectionFollowAdapter
 import com.adasoraninda.githubuserdts.data.domain.User
@@ -121,7 +120,7 @@ class DetailUserActivity : AppCompatActivity() {
 
     private fun initUi(username: String?) {
         initActionBar(username)
-        initTabSection()
+        initTabSection(username)
     }
 
     private fun initActionBar(title: String?) {
@@ -142,10 +141,10 @@ class DetailUserActivity : AppCompatActivity() {
         }
     }
 
-    private fun initTabSection() {
+    private fun initTabSection(username: String?) {
         val tabLayout = binding?.tabLayout
         val viewPager = binding?.viewPager?.apply {
-            adapter = SectionFollowAdapter(this@DetailUserActivity)
+            adapter = SectionFollowAdapter(username, this@DetailUserActivity)
         }
 
         if (tabLayout != null && viewPager != null) {
@@ -157,11 +156,7 @@ class DetailUserActivity : AppCompatActivity() {
 
     private fun observeViewModel() {
         viewModel.daoMessageResult.observe(this) { event ->
-            val message = when (val result = event.getContent()) {
-                is DaoMessageResult.Delete -> result.message ?: R.string.error_dao_delete
-                is DaoMessageResult.Save -> result.message ?: R.string.error_dao_save
-                else -> null
-            }
+            val message = event.getContent()
             message?.let { showToastMessage(getString(it)) }
         }
 

@@ -54,8 +54,7 @@ class FollowFragment : Fragment() {
         viewModel = obtainViewModelWithFactory(FollowViewModel::class.java, factory)
 
         val type = arguments?.get(ARGS_TYPE) as? FollowType
-        val username = (requireActivity() as DetailUserActivity).intent
-            .getStringExtra(DetailUserActivity.EXTRA_USERNAME)
+        val username = arguments?.getString(ARGS_USERNAME)
 
         type?.let { viewModel.getUserFollow(it, username) }
 
@@ -120,10 +119,12 @@ class FollowFragment : Fragment() {
 
     companion object {
         private const val ARGS_TYPE = "ARGS_TYPE"
+        private const val ARGS_USERNAME = "ARGS_USERNAME"
 
-        fun getInstances(type: FollowType): FollowFragment {
+        fun getInstances(username: String?, type: FollowType): FollowFragment {
             return FollowFragment().apply {
                 arguments = Bundle().apply {
+                    putString(ARGS_USERNAME, username)
                     putSerializable(ARGS_TYPE, type)
                 }
             }

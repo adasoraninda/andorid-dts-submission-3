@@ -6,6 +6,7 @@ import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.adasoraninda.githubuserdts.ui.FollowFragment
 
 class SectionFollowAdapter(
+    private val username: String?,
     fa: FragmentActivity
 ) : FragmentStateAdapter(fa) {
 
@@ -15,7 +16,7 @@ class SectionFollowAdapter(
 
     override fun createFragment(position: Int): Fragment {
         return FollowType.values().map {
-            FollowFragment.getInstances(it)
+            FollowFragment.getInstances(username, it)
         }[position]
     }
 }
